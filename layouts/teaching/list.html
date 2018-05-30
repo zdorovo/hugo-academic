@@ -1,0 +1,30 @@
+{{ partial "header.html" . }}
+{{ partial "navbar.html" . }}
+
+{{ partial "header_image.html" . }}
+
+<div class="universal-wrapper">
+<br/>
+  {{ with .Title }}<h1>{{ . }}</h1>{{ end }}
+
+  {{ with .Content }}
+  <div class="article-style" itemprop="articleBody">{{ . }}</div>
+  {{ end }}
+
+  {{ $paginator := .Paginate .Data.Pages }}
+  {{ range sort $paginator.Pages ".Params.course_time" "desc" }}
+  <div>
+      <h2>{{ .Params.subject }} {{ .Params.number }} ({{ .Params.title }})</h2> 
+      {{ .Params.institution }},  {{ .Params.semester }} {{ .Params.year }} 
+      <div class="pub-links">
+        {{ partial "teaching_links" (dict "content" . "is_list" 1) }}
+    </div>
+  </div>
+  {{ end }}
+
+  {{ partial "pagination" . }}
+
+</div>
+{{ partial "footer_container.html" . }}
+{{ partial "footer.html" . }}
+
