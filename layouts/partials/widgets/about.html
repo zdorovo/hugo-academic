@@ -37,6 +37,10 @@
       </div>
 
       <link itemprop="url" href="{{ $.Site.BaseURL }}">
+    {{ with $.Site.Params.curriculum_vitae }}
+      <div style="padding-top:5px;"><a class="btn btn-primary btn-outline" href="files/{{ . }}"><i class="fa fa-file-pdf-o fa-1x"></i> Curriculum Vitae
+</a> </div>
+      {{ end}}
 
       <ul class="network-icon" aria-hidden="true">
         {{ range $.Site.Params.social }}

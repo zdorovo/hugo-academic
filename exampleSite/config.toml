@@ -69,7 +69,7 @@ enableGitInfo = false
   phone = "888 888 88 88"
   skype = "echo123"
   telegram = ""
-
+  curriculum_vitae = "MyCV.pdf" # Specify your CV file (in `static/files/` folder) or delete value to disable CV button
   # Enable Keybase in Contact widget by entering your keybase.io username.
   keybase = ""
 
