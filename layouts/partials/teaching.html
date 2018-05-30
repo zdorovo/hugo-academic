@@ -1,0 +1,5 @@
+<h2>{{ .Params.semester }} {{ .Params.year }}: {{ .Params.subject }} {{ .Params.number }} ({{ .Params.title }}) </h2>
+<div class="pub-links">
+    {{ partial "teaching_links" (dict "content" . "is_list" 1) }}
+</div>
+
