@@ -1,24 +1,37 @@
 {{ $is_list := .is_list }}
 {{ $ := .content }}
 
+{{ range $.Params.url_custom }}
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ .url | absURL }}" target="_blank" rel="noopener">
+  {{ .name }}
+</a>
+{{ end }}
+{{ with $.Params.journal }}
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{.|}}" target="_blank" rel="noopener"> <i class="fa fa-book fa-1x"></i> Journal
+</a>
+{{ end }}
 {{ with $.Params.url_preprint }}
 <a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}" target="_blank" rel="noopener">
   {{ i18n "btn_preprint" }}
 </a>
 {{ end }}
 {{ with $.Params.url_pdf }}
-<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}" target="_blank" rel="noopener">
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}" target="_blank" rel="noopener"><i class="fa fa-file-pdf-o fa-1x"></i>
   {{ i18n "btn_pdf" }}
 </a>
 {{ end }}
-{{ $directory := "static/files/citations/" }}
+{{ with $.Params.arxiv }}
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="https://arxiv.org/abs/{{.|}}" target="_blank" rel="noopener"> <i class="ai ai-arxiv"></i> arXiv
+</a>
+{{ end }}
+<!-- {{ $directory := "static/files/citations/" }}
 {{ $filename := printf "%s%s.bib" $directory $.File.TranslationBaseName }}
 {{ if fileExists $filename }}
 <button type="button" class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}} js-cite-modal"
         data-filename="{{ printf "files/citations/%s.bib" $.File.TranslationBaseName | relURL }}">
   {{ i18n "btn_cite" }}
 </button>
-{{ end }}
+{{ end }} -->
 {{ with $.Params.url_code }}
 <a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}" target="_blank" rel="noopener">
   {{ i18n "btn_code" }}
@@ -29,25 +42,13 @@
   {{ i18n "btn_dataset" }}
 </a>
 {{ end }}
-{{ if $.Params.projects }}
-{{ range $.Params.projects }}
-  {{ with ($.Site.GetPage "page" "project" .) }}
-  <a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ .Permalink }}">
-    {{ i18n "btn_project" }}
-  </a>
-  {{ else }}
-    {{ errorf "The `projects` parameter in `content/%s` references a project file, `content/project/%s`, which cannot be found. Please either set `projects = []` or fix the reference." $.File.Path . }}
-  {{ end }}
-{{ end }}
-{{ else }}
 {{ with $.Params.url_project }}
-<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absLangURL }}" target="_blank" rel="noopener">
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absLangURL }}">
   {{ i18n "btn_project" }}
 </a>
 {{ end }}
-{{ end }}
 {{ with $.Params.url_poster }}
-<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}" target="_blank" rel="noopener">
+<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ . | absURL }}" target="_blank" rel="noopener"> <i class="fa fa-file-pdf-o fa-1x"></i>
   {{ i18n "btn_poster" }}
 </a>
 {{ end }}
@@ -66,8 +67,4 @@
   {{ i18n "btn_source" }}
 </a>
 {{ end }}
-{{ range $.Params.url_custom }}
-<a class="btn btn-primary btn-outline{{ if $is_list }} btn-xs{{end}}" href="{{ .url | absURL }}" target="_blank" rel="noopener">
-  {{ .name }}
-</a>
-{{ end }}
+
